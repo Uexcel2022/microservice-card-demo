@@ -2,6 +2,7 @@ package com.eazybyties.card.exception;
 
 import com.eazybyties.card.dto.ErrorResponseDto;
 import io.micrometer.common.lang.NonNull;
+import io.micrometer.common.lang.NonNullApi;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -26,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @NonNull
     protected ResponseEntity<Object>
     handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers,
+            MethodArgumentNotValidException ex, HttpHeaders  headers,
             HttpStatusCode status, WebRequest request) {
         Map<String, Object> validatedErrors = new LinkedHashMap<>();
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
