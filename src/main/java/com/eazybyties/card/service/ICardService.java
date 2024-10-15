@@ -6,7 +6,7 @@ import com.eazybyties.card.dto.ResponseDto;
 public interface ICardService {
 
     /**
-     * @param cardDto
+     * @param cardDto - holds card details
      * @return Returns response code and message with responseDto object
      */
     ResponseDto createCard(CardDto cardDto);

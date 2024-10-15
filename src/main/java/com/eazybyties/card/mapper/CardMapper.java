@@ -3,7 +3,6 @@ package com.eazybyties.card.mapper;
 import com.eazybyties.card.dto.CardDto;
 import com.eazybyties.card.entity.Card;
 
-import java.util.Random;
 
 public class CardMapper {
 

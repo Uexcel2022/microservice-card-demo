@@ -10,8 +10,7 @@ import com.eazybyties.card.exception.ResourceNotFoundException;
 import com.eazybyties.card.mapper.CardMapper;
 import com.eazybyties.card.repository.CardRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +26,7 @@ public class CardServiceImpl implements ICardService {
     private final CardRepository cardRepository;
 
     /**
-     * @param cardDto
+     * @param cardDto - holds card details
      * @return Returns response code and message with responseDto object
      */
     @Override
@@ -63,7 +62,7 @@ public class CardServiceImpl implements ICardService {
     @Override
     public boolean updateCard(CardDto cardDto) {
         if(cardDto.getCardNumber()== null ||
-                cardDto.getCardNumber().toString().length()<12) {
+                cardDto.getCardNumber().length()<12) {
             throw new CardNotValidException("Invalid card number. It must be 12 digits");
         }
         Card card = cardExists(cardDto.getCardNumber());
