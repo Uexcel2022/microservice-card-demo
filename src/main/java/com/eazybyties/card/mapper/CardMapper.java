@@ -3,10 +3,11 @@ package com.eazybyties.card.mapper;
 import com.eazybyties.card.dto.CardDto;
 import com.eazybyties.card.entity.Card;
 
+import java.util.Random;
+
 public class CardMapper {
 
     public static Card mapToCard(CardDto cardDto, Card card) {
-        card.setCardNumber(cardDto.getCardNumber());
         card.setCardType(cardDto.getCardType());
         card.setAmountUsed(cardDto.getAmountUsed());
         card.setAvailableAmount(cardDto.getAvailableAmount());
@@ -24,6 +25,7 @@ public class CardMapper {
         cardDto.setCardNumber(card.getCardNumber());
         return cardDto;
     }
+
 }
 
 
