@@ -59,9 +59,10 @@ public class CardController {
     )
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createCard(@Valid @RequestBody CardDto cardDto) {
+    public ResponseEntity<ResponseDto> createCardDetails(@RequestParam String mobileNumber) {
+        iCardService.validateMobileNumber(mobileNumber);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(iCardService.createCard(cardDto));
+                .body(iCardService.createCard(mobileNumber));
     }
 
 
@@ -87,9 +88,9 @@ public class CardController {
     )
 
     @GetMapping("/fetch")
-    public ResponseEntity<CardDto> updateCard(@RequestParam String mobileOrCardNumber) {
-        iCardService.validateCordOrMobilNumber(mobileOrCardNumber);
-      return   ResponseEntity.ok().body(iCardService.getCardDetails(mobileOrCardNumber));
+    public ResponseEntity<CardDto> updateCard(@RequestParam String mobileNumber) {
+        iCardService.validateMobileNumber(mobileNumber);
+      return   ResponseEntity.ok().body(iCardService.getCardDetails(mobileNumber));
     }
 
     @Operation(
@@ -136,7 +137,6 @@ public class CardController {
 
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> update(@Valid @RequestBody CardDto cardDto) {
-        iCardService.validateCordOrMobilNumber(cardDto.getCardNumber());
         boolean success = iCardService.updateCardDetails(cardDto);
         if (success) {
             return ResponseEntity.ok().body(new ResponseDto(
@@ -182,10 +182,9 @@ public class CardController {
     )
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteCard(@RequestParam String mobileOrCardNumber) {
-        iCardService.validateCordOrMobilNumber(mobileOrCardNumber);
-        boolean success = iCardService.deleteCardDetails(mobileOrCardNumber);
-        iCardService.validateCordOrMobilNumber(mobileOrCardNumber);
+    public ResponseEntity<ResponseDto> deleteCard(@RequestParam String mobileNumber) {
+        iCardService.validateMobileNumber(mobileNumber);
+        boolean success = iCardService.deleteCardDetails(mobileNumber);
         if (success) {
            return ResponseEntity.ok().body(new ResponseDto(
                    CardConstants.STATUS_CODE_200,CardConstants.MESSAGE_200_Delete));

@@ -16,11 +16,12 @@ public class CardDto {
     @Schema(
           description = "Card number of EazyBank", example = "100672009814"
     )
+    @Pattern(regexp = "^[1-9][0-9]{11}$",message = "Invalid card number, must be 12 digits.")
     private String cardNumber;
     @Schema(
             description = "Mobile number of customer", example = "07009081070"
     )
-    @Pattern(regexp = "^0[7-9][01][0-9]{8}$",message = "Invalid mobile number")
+    @Pattern(regexp = "^0[7-9][01][0-9]{8}$",message = "Invalid mobile number example: 07009081070")
     private String mobileNumber;
     @Schema(
             description = "Card type in EazyBank", example = "credit card"

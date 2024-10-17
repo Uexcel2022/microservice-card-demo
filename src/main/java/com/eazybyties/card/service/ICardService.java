@@ -7,10 +7,10 @@ import com.eazybyties.card.dto.ResponseDto;
 public interface ICardService {
 
     /**
-     * @param cardDto - holds card details
+     * @param mobileNumber - mobileNumber
      * @return Returns response code and message with responseDto object
      */
-    ResponseDto createCard(CardDto cardDto);
+    ResponseDto createCard(String mobileNumber);
 
     /**
      * @param mobileOrCardNumber value - mobileNumber or cardNumber
@@ -30,13 +30,18 @@ public interface ICardService {
      */
     boolean updateCardDetails(CardDto cardDto);
 
-    default void validateCordOrMobilNumber(String mobileOrCardNumber) {
-       boolean isValid = mobileOrCardNumber.matches(("^[1-9][0-9]{11}|0[7-9][01][0-9]{8}$"));
-       if(!isValid){
-           throw new InvalidArgumentException(
-                   String.format("Card or mobile number %s is invalid", mobileOrCardNumber));
-       }
+    /**
+     * @param mobileNumber - mobile number
+     */
+    default void validateMobileNumber(String mobileNumber) {
+        boolean isValid = mobileNumber.matches(("^0[7-9][01][0-9]{8}$"));
+        if(!isValid){
+            throw new InvalidArgumentException(
+                    String.format("Mobile number %s is invalid", mobileNumber));
+        }
+
     }
+
 
 
 }

@@ -27,19 +27,19 @@ public class CardServiceImpl implements ICardService {
     private final CardRepository cardRepository;
 
     /**
-     * @param cardDto - holds card details
+     * @param mobileNumber - mobileNumber
      * @return Returns response code and message with responseDto object
      */
     @Override
-    public ResponseDto createCard(CardDto cardDto) {
-        if(cardRepository.existsByMobileNumber(cardDto.getMobileNumber())) {
-            throw new UsedMobileNumberException(cardDto.getMobileNumber());
+    public ResponseDto createCard(String mobileNumber) {
+        if(cardRepository.existsByMobileNumber(mobileNumber)) {
+            throw new UsedMobileNumberException(mobileNumber);
         }
         long number = 100000000000L+ new Random().nextInt(900000000);
         Card card = new Card();
         card.setCardNumber(Long.toString(number));
         cardRepository
-                .save(CardMapper.mapToCard(cardDto,card));
+                .save(CardMapper.mapToNewCard(mobileNumber,card));
         return new ResponseDto(
                 CardConstants.STATUS_CODE_201,CardConstants.MESSAGE_201
         );
@@ -61,12 +61,8 @@ public class CardServiceImpl implements ICardService {
      */
     @Override
     public boolean updateCardDetails(CardDto cardDto) {
-        if(cardDto.getCardNumber()== null ||
-                cardDto.getCardNumber().length()<12) {
-            throw new CardNotValidException("Invalid card number. It must be 12 digits");
-        }
         Card card = cardExists(cardDto.getCardNumber());
-        cardRepository.save(CardMapper.mapToCard(cardDto,card));
+        cardRepository.save(CardMapper.mapToCardUpdate(cardDto,card));
         return true;
     }
 
@@ -82,9 +78,15 @@ public class CardServiceImpl implements ICardService {
 
     public  Card cardExists(String mobileOrCardNumber){
        return   cardRepository.findByCardNumberOrMobileNumber(mobileOrCardNumber,mobileOrCardNumber)
-                .orElseThrow(()->
-                        new ResourceNotFoundException(
-                                "Card","CordNumber or MobileNumber",mobileOrCardNumber));
+                .orElseThrow(()-> {
+                    if(mobileOrCardNumber.length()==11){
+                    return new ResourceNotFoundException(
+                            "Card", "mobileNumber", mobileOrCardNumber);
+                    }else {
+                        return new ResourceNotFoundException(
+                                "Card", "cardNumber", mobileOrCardNumber);
+                    }
+                });
       }
 
 }

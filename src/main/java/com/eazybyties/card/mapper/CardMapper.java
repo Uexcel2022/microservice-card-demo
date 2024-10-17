@@ -1,17 +1,18 @@
 package com.eazybyties.card.mapper;
 
+import com.eazybyties.card.constants.CardConstants;
 import com.eazybyties.card.dto.CardDto;
 import com.eazybyties.card.entity.Card;
 
 
 public class CardMapper {
 
-    public static Card mapToCard(CardDto cardDto, Card card) {
-        card.setCardType(cardDto.getCardType());
-        card.setAmountUsed(cardDto.getAmountUsed());
-        card.setAvailableAmount(cardDto.getAvailableAmount());
-        card.setTotalLimit(cardDto.getTotalLimit());
-        card.setMobileNumber(cardDto.getMobileNumber());
+    public static Card mapToNewCard(String mobileNumber, Card card) {
+        card.setCardType(CardConstants.CREDIT_CARD);
+        card.setAmountUsed(0);
+        card.setAvailableAmount(CardConstants.NEW_CARD_LIMIT);
+        card.setTotalLimit(CardConstants.NEW_CARD_LIMIT);
+        card.setMobileNumber(mobileNumber);
         return card;
     }
 
@@ -23,6 +24,15 @@ public class CardMapper {
         cardDto.setMobileNumber(card.getMobileNumber());
         cardDto.setCardNumber(card.getCardNumber());
         return cardDto;
+    }
+
+    public static Card mapToCardUpdate(CardDto cardDto, Card card) {
+        card.setCardType(cardDto.getCardType());
+        card.setAmountUsed(cardDto.getAmountUsed());
+        card.setAvailableAmount(cardDto.getAvailableAmount());
+        card.setTotalLimit(cardDto.getTotalLimit());
+        card.setMobileNumber(cardDto.getMobileNumber());
+        return card;
     }
 
 }
