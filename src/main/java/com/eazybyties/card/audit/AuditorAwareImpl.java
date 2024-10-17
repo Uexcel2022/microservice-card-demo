@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class AuditorAwareImpl implements AuditorAware {
+public class AuditorAwareImpl implements AuditorAware<String> {
 
     /**
      * @return current auditor in the application

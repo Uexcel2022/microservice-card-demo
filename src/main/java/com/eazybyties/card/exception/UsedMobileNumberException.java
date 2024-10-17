@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.io.Serial;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class CardExistsException extends RuntimeException {
+public class UsedMobileNumberException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
-    public CardExistsException(String message) {
-        super(message);
+    public UsedMobileNumberException(String message) {
+        super(String.format("Mobile number %s already used", message));
     }
 }

@@ -1,14 +1,15 @@
-package com.eazybyties.card.service;
+package com.eazybyties.card.service.impl;
 
 import com.eazybyties.card.constants.CardConstants;
 import com.eazybyties.card.dto.CardDto;
-import com.eazybyties.card.exception.CardExistsException;
+import com.eazybyties.card.exception.UsedMobileNumberException;
 import com.eazybyties.card.dto.ResponseDto;
 import com.eazybyties.card.entity.Card;
 import com.eazybyties.card.exception.CardNotValidException;
 import com.eazybyties.card.exception.ResourceNotFoundException;
 import com.eazybyties.card.mapper.CardMapper;
 import com.eazybyties.card.repository.CardRepository;
+import com.eazybyties.card.service.ICardService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -32,12 +33,11 @@ public class CardServiceImpl implements ICardService {
     @Override
     public ResponseDto createCard(CardDto cardDto) {
         if(cardRepository.existsByMobileNumber(cardDto.getMobileNumber())) {
-            throw new CardExistsException(
-                    "Mobile number already used: " + cardDto.getMobileNumber());
+            throw new UsedMobileNumberException(cardDto.getMobileNumber());
         }
-        Long number = 100000000000L+ new Random().nextInt(900000000);
+        long number = 100000000000L+ new Random().nextInt(900000000);
         Card card = new Card();
-        card.setCardNumber(number.toString());
+        card.setCardNumber(Long.toString(number));
         cardRepository
                 .save(CardMapper.mapToCard(cardDto,card));
         return new ResponseDto(
@@ -50,7 +50,7 @@ public class CardServiceImpl implements ICardService {
      * @return Returns card information with CardDto object
      */
     @Override
-    public CardDto getCard(String mobileOrCardNumber) {
+    public CardDto getCardDetails(String mobileOrCardNumber) {
       Card card =  cardExists(mobileOrCardNumber);
         return CardMapper.mapToCardDto(card,new CardDto());
     }
@@ -60,7 +60,7 @@ public class CardServiceImpl implements ICardService {
      * @return Returns boolean value indicating whether care is update successfully or not
      */
     @Override
-    public boolean updateCard(CardDto cardDto) {
+    public boolean updateCardDetails(CardDto cardDto) {
         if(cardDto.getCardNumber()== null ||
                 cardDto.getCardNumber().length()<12) {
             throw new CardNotValidException("Invalid card number. It must be 12 digits");
@@ -75,7 +75,7 @@ public class CardServiceImpl implements ICardService {
      * @return Returns boolean value indicating whether care is delete successfully or not
      */
     @Override
-    public boolean deleteCard(String mobileOrCardNumber) {
+    public boolean deleteCardDetails(String mobileOrCardNumber) {
         cardRepository.delete(cardExists(mobileOrCardNumber));
         return true;
     }

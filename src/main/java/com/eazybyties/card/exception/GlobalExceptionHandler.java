@@ -1,12 +1,11 @@
 package com.eazybyties.card.exception;
 
 import com.eazybyties.card.dto.ErrorResponseDto;
-import io.micrometer.common.lang.NonNull;
-import io.micrometer.common.lang.NonNullApi;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,8 +22,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @Nullable
     @Override
-    @NonNull
     protected ResponseEntity<Object>
     handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders  headers,
@@ -50,9 +49,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
       return new ResponseEntity<>(notFoundErrorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(CardExistsException.class)
+    @ExceptionHandler(UsedMobileNumberException.class)
     public ResponseEntity<ErrorResponseDto>
-    handleCardExistException(final CardExistsException e, WebRequest request) {
+    handleCardExistException(final UsedMobileNumberException e, WebRequest request) {
         ErrorResponseDto mobileNumberExistsErrorResponse = new ErrorResponseDto(
                 request.getDescription(false),HttpStatus.BAD_REQUEST,
                 e.getMessage(),LocalDateTime.now());
@@ -67,6 +66,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 e.getMessage(),LocalDateTime.now());
         return new ResponseEntity<>(mobileNumberExistsErrorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidArgumentException.class)
+    public ResponseEntity<ErrorResponseDto>
+    handleInvalidArgumentException(final InvalidArgumentException e, WebRequest request) {
+        ErrorResponseDto mobileNumberExistsErrorResponse = new ErrorResponseDto(
+                request.getDescription(false),HttpStatus.BAD_REQUEST,
+                e.getMessage(),LocalDateTime.now());
+        return new ResponseEntity<>(mobileNumberExistsErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto>

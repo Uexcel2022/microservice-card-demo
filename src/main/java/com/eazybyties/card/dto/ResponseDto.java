@@ -11,6 +11,12 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class ResponseDto {
+    @Schema(
+            description = "Responses codes",example = "200,417"
+    )
     private String statusCode;
+    @Schema(
+            description = "Responses messages", example = "...Successfully, ...Fail"
+    )
     private String statusMessage;
 }

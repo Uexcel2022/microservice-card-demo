@@ -1,10 +1,7 @@
 package com.eazybyties.card.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +11,13 @@ public class Card extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
+    @Column(updatable = false)
     private String cardNumber;
     private String mobileNumber;
     private String cardType;
-    private int totalLimit;
-    private int amountUsed;
-    private int availableAmount;
+    private double totalLimit;
+    private double amountUsed;
+    private double availableAmount;
 }
 
 

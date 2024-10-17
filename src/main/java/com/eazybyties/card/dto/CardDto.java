@@ -2,22 +2,45 @@ package com.eazybyties.card.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Schema(
         name = "Card",
-        description = "Schema to hold card details"
+        description = "Schema to hold card information"
 )
 @Getter @Setter @ToString
 public class CardDto {
+    @Schema(
+          description = "Card number of EazyBank", example = "100672009814"
+    )
     private String cardNumber;
-    @Pattern(regexp = "0[7-9][01][0-9]{8}",message = "Invalid nigeria mobile number")
+    @Schema(
+            description = "Mobile number of customer", example = "07009081070"
+    )
+    @Pattern(regexp = "^0[7-9][01][0-9]{8}$",message = "Invalid mobile number")
     private String mobileNumber;
-    @Pattern(regexp = "(visacard|mastercard|vervecard)",message = "Unacceptable card type")
+    @Schema(
+            description = "Card type in EazyBank", example = "credit card"
+    )
+    @Pattern(regexp = "(^credit card|debit card|loan card$)",message = "Unacceptable card type")
     private String cardType;
-    private int totalLimit;
-    private int amountUsed;
-    private int availableAmount;
+
+    @Schema(
+            description = "Card fund limit in EazyBank", example = "10000.91"
+    )
+    @PositiveOrZero(message = "Total limit should be zero or greater")
+    private double totalLimit;
+    @Schema(
+            description = "The amount customer has used from the card", example = "500.21"
+    )
+    @PositiveOrZero(message = "Amount used should be zero or greater")
+    private double amountUsed;
+    @Schema(
+            description = "Available amount on the card", example = "1230.31"
+    )
+    @PositiveOrZero(message = "Available amount should be zero or greater")
+    private double availableAmount;
 }
