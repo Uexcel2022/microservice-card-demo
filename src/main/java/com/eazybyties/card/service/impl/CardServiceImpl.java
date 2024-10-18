@@ -46,12 +46,12 @@ public class CardServiceImpl implements ICardService {
     }
 
     /**
-     * @param mobileOrCardNumber value - mobileNumber or cardNumber
+     * @param mobileNumber value - mobileNumber
      * @return Returns card information with CardDto object
      */
     @Override
-    public CardDto getCardDetails(String mobileOrCardNumber) {
-      Card card =  cardExists(mobileOrCardNumber);
+    public CardDto getCardDetails(String mobileNumber) {
+      Card card =  cardExists(mobileNumber);
         return CardMapper.mapToCardDto(card,new CardDto());
     }
 
@@ -67,12 +67,12 @@ public class CardServiceImpl implements ICardService {
     }
 
     /**
-     * @param mobileOrCardNumber value - mobileNumber or cardNumber
+     * @param mobileNumber value - mobileNumber
      * @return Returns boolean value indicating whether care is delete successfully or not
      */
     @Override
-    public boolean deleteCardDetails(String mobileOrCardNumber) {
-        cardRepository.delete(cardExists(mobileOrCardNumber));
+    public boolean deleteCardDetails(String mobileNumber) {
+        cardRepository.delete(cardExists(mobileNumber));
         return true;
     }
 

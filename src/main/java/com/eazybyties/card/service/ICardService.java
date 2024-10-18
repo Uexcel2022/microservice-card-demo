@@ -13,16 +13,16 @@ public interface ICardService {
     ResponseDto createCard(String mobileNumber);
 
     /**
-     * @param mobileOrCardNumber value - mobileNumber or cardNumber
+     * @param mobileNumber value - mobileNumber
      * @return Returns card information with CardDto object
      */
-    CardDto getCardDetails(String mobileOrCardNumber);
+    CardDto getCardDetails(String mobileNumber);
 
     /**
-     * @param mobileOrCardNumber value - mobileNumber or cardNumber
+     * @param mobileNumber value - mobileNumber
      * @return Returns boolean value indicating whether care is delete successfully or not
      */
-    boolean deleteCardDetails(String mobileOrCardNumber);
+    boolean deleteCardDetails(String mobileNumber);
 
     /**
      * @param cardDto - the requestBody object
