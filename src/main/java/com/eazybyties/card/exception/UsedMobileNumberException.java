@@ -10,6 +10,6 @@ public class UsedMobileNumberException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
     public UsedMobileNumberException(String message) {
-        super(String.format("Mobile number %s already used", message));
+        super(String.format("Mobile number %s has been used.", message));
     }
 }

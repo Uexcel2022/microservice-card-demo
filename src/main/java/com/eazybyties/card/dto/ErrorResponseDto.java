@@ -15,20 +15,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor @NoArgsConstructor
 public class ErrorResponseDto {
     @Schema(
-            description = "Endpoint invoked when the error occurred",example = "uri=/api/fetch"
+            description = "API path invoked when the error occurred" ,example = "uri=/api/fetch"
     )
     private String apiPath;
     @Schema(
-            description = "Response", example = "400"
+            description = "Response codes" ,example = "400,500,404"
     )
     private HttpStatus errorCode;
     @Schema(
-            description = "Error message", example = "Required parameter 'mobileOrCardNumber' is not present"
+            description = "Error massages", example = "Required parameter 'mobileNumber' is not present."
     )
-    private String statusMessage;
-    @Schema(
-            description = "The date and date error occurred", example = "2024-10-16T17:10:22.5514261"
-    )
+    private String errorMessage;
 
     private LocalDateTime errorTime;
+
 }
