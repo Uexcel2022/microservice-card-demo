@@ -36,7 +36,7 @@ import java.util.Map;
 public class CardController {
 
     @Value("${build.version}")
-    private String build;
+    private String buildVersion;
 
     private final ICardService iCardService;
     private  final CardContactInfoDto contactConfigDto;
@@ -227,8 +227,8 @@ public class CardController {
     }
 
     @Operation(
-            summary = "REST API to fetch build information",
-            description = "REST API for fetching application build details in EazyBank",
+            summary = "REST API to fetch buildVersion information",
+            description = "REST API for fetching application buildVersion details in EazyBank",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -256,7 +256,7 @@ public class CardController {
     public ResponseEntity<Map<String,String>> getBuildVersion() {
         Map<String,String> buildInfo = new LinkedHashMap<>();
         buildInfo.put("Name","Eazy Bank Card Microservice");
-        buildInfo.put("version", build);
+        buildInfo.put("version", buildVersion);
         buildInfo.put("Build Date", "2024-10-20");
         return ResponseEntity.ok().body(buildInfo);
     }
