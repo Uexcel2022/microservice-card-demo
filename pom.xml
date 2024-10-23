@@ -63,8 +63,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -115,7 +115,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>uexcel247/${project.artifactId}:s6</image>
+						<image>uexcel247/${project.artifactId}:s7</image>
 					</to>
 				</configuration>
 			</plugin>
