@@ -1,27 +1,25 @@
 spring:
   application:
     name: card
-  h2:
-    console:
-      enabled: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/carddb
+    url: jdbc:mysql://localhost:3307/sys
     username: root
     password: root
+  jpa:
     show-sql: true
+
   sql:
     init:
       mode: always
+
+  profiles:
+    active: prod
 
   rabbitmq:
     host: "localhost"
     port: 5672
     username: "guest"
     password: "guest"
-  
-  profiles:
-    active: prod
 
   config:
     import: "optional:configserver:http://localhost:8071/"
